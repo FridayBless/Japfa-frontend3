@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 import {
     Check,
@@ -745,34 +746,12 @@ const EfficiencyContent = () => (
 );
 
 const ManagerLogistik = () => {
-    const [activeTab, setActiveTab] = useState("overview");
+    const location = useLocation();
+    const activeTab = location.pathname.split('/').pop() || 'overview';
     const { endDate } = useDateRange();
 
     return (
         <div className="p-8 pt-0 max-w-[1600px] mx-auto min-h-screen">
-            {/* Horizontal Tab Navigation */}
-            <div className="sticky top-0 z-20 bg-gray-50/95 dark:bg-sidebar/95 backdrop-blur-sm -mx-8 px-8 border-b border-gray-200 dark:border-white/10 pt-1 mb-8">
-                <nav className="flex items-center justify-between gap-10">
-                    <div className="flex items-center gap-10">
-                        {[
-                            { id: "overview", label: "Overview" },
-                            { id: "return", label: "Return Performance" },
-                            { id: "efficiency", label: "Logistics Efficiency" }
-                        ].map((tab) => (
-                            <button
-                                key={tab.id}
-                                onClick={() => setActiveTab(tab.id)}
-                                className={`py-3 text-sm transition-all border-b-2 ${activeTab === tab.id
-                                    ? "text-japfa-orange border-japfa-orange font-extrabold"
-                                    : "text-japfa-gray dark:text-gray-400 border-transparent hover:text-japfa-dark dark:hover:text-white hover:border-gray-300 dark:hover:border-white/20 font-semibold"
-                                    }`}
-                            >
-                                {tab.label}
-                            </button>
-                        ))}
-                    </div>
-                </nav>
-            </div>
 
             {/* Tab Content */}
             <div className="space-y-8 pb-10 transition-all duration-500">
