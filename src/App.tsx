@@ -77,7 +77,10 @@ function App() {
               {/* Manager Logistik Routes */}
               <Route element={<RoleGuard allowedRoles={['manager']} />}>
                 <Route element={<LogisticsLayout />}>
-                  <Route path="/manager" element={<ManagerLogistik />} />
+                  <Route path="/manager" element={<Navigate to="/manager/overview" replace />} />
+                  <Route path="/manager/overview" element={<ManagerLogistik />} />
+                  <Route path="/manager/return" element={<ManagerLogistik />} />
+                  <Route path="/manager/efficiency" element={<ManagerLogistik />} />
                 </Route>
               </Route>
 

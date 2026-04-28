@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 import {
     Check,
@@ -199,6 +200,40 @@ const OverviewContent = ({ endDate }: { endDate: string }) => {
                 </div>
             </section>
 
+            {/* Bottom KPI Row */}
+            <section className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+                <KPICard
+                    label="Return Rate"
+                    value="1.2%"
+                    change="0.4%"
+                    trend="down"
+                    icon="assignment_return"
+                    bgColor="bg-red-50"
+                    iconColor="text-red-600"
+                    subtext="Rejected loads reduction"
+                />
+                <KPICard
+                    label="Transport Cost"
+                    value="4.2B"
+                    change="2.1%"
+                    trend="up"
+                    icon="payments"
+                    bgColor="bg-purple-50"
+                    iconColor="text-purple-600"
+                    subtext="Fuel surcharge impact"
+                />
+                <KPICard
+                    label="Load Factor"
+                    value="89.4%"
+                    change="1.5%"
+                    trend="up"
+                    icon="local_shipping"
+                    bgColor="bg-teal-50"
+                    iconColor="text-teal-600"
+                    subtext="Capacity efficiency"
+                />
+            </section>
+
             <section className="bg-white dark:bg-card-dark p-8 rounded-xl shadow-sm border border-gray-100 dark:border-white/5">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 flex-wrap">
                     <div>
@@ -258,101 +293,6 @@ const OverviewContent = ({ endDate }: { endDate: string }) => {
                     <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
                 </div>
             </section>
-
-            {/* Bottom KPI Row - Stacked Vertically with No Side Blank Space */}
-            <section className="flex flex-col gap-4 w-full">
-                <KPICard
-                    label="Return Rate"
-                    value="1.2%"
-                    change="0.4%"
-                    trend="down"
-                    icon="assignment_return"
-                    bgColor="bg-red-50"
-                    iconColor="text-red-600"
-                    subtext="Rejected loads reduction"
-                />
-                <KPICard
-                    label="Transport Cost"
-                    value="4.2B"
-                    change="2.1%"
-                    trend="up"
-                    icon="payments"
-                    bgColor="bg-purple-50"
-                    iconColor="text-purple-600"
-                    subtext="Fuel surcharge impact"
-                />
-                <KPICard
-                    label="Load Factor"
-                    value="89.4%"
-                    change="1.5%"
-                    trend="up"
-                    icon="local_shipping"
-                    bgColor="bg-teal-50"
-                    iconColor="text-teal-600"
-                    subtext="Capacity efficiency"
-                />
-            </section>
-
-            {/* 🌟 NEW: RETURN REASONS & AI ANALYSIS */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-white dark:bg-card-dark p-8 rounded-xl shadow-sm border border-gray-100 dark:border-white/5">
-                    <h2 className="text-xl font-bold text-japfa-dark dark:text-white mb-1">Return Causes Distribution</h2>
-                    <p className="text-sm text-japfa-gray dark:text-gray-400 font-medium mb-8">Breakdown of return reasons by total weight percentage</p>
-                    <div className="flex flex-col items-center">
-                        <div className="relative w-48 h-48 mb-8">
-                            <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                                <circle className="stroke-gray-100 dark:stroke-white/5" cx="18" cy="18" r="15.9155" fill="transparent" strokeWidth="3"></circle>
-                                <circle className="stroke-japfa-orange" cx="18" cy="18" r="15.9155" fill="transparent" strokeWidth="5" strokeDasharray="68 32" strokeDashoffset="0"></circle>
-                                <circle className="stroke-japfa-navy dark:stroke-blue-400" cx="18" cy="18" r="15.9155" fill="transparent" strokeWidth="5" strokeDasharray="23 77" strokeDashoffset="-68"></circle>
-                                <circle className="stroke-japfa-gray dark:stroke-gray-600" cx="18" cy="18" r="15.9155" fill="transparent" strokeWidth="5" strokeDasharray="9 91" strokeDashoffset="-91"></circle>
-                            </svg>
-                            <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                <span className="text-3xl font-extrabold text-japfa-dark dark:text-white">18.1K</span>
-                                <span className="text-[10px] font-bold text-japfa-gray dark:text-gray-400 uppercase tracking-widest mt-1">Total KG</span>
-                            </div>
-                        </div>
-                        <div className="w-full space-y-3">
-                            {[
-                                { label: "Quality Issues", percent: "68.5%", color: "bg-japfa-orange" },
-                                { label: "Mismatched SKU", percent: "23.1%", color: "bg-japfa-navy" },
-                                { label: "Cust. Rejection", percent: "8.4%", color: "bg-japfa-gray" }
-                            ].map((item, idx) => (
-                                <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-sidebar rounded-lg border border-gray-100 dark:border-white/5">
-                                    <div className="flex items-center gap-3">
-                                        <span className={`w-3 h-3 rounded-full ${item.color}`}></span>
-                                        <span className="text-sm font-semibold text-japfa-gray dark:text-gray-400">{item.label}</span>
-                                    </div>
-                                    <span className="text-md font-bold text-japfa-dark dark:text-white">{item.percent}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-                <div className="bg-gradient-to-br from-japfa-navy to-japfa-navy/90 p-1 rounded-xl shadow-lg">
-                    <div className="bg-white dark:bg-card-dark p-7 rounded-[10px] h-full">
-                        <div className="flex items-center justify-between mb-6">
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 bg-japfa-orange/10 rounded-lg">
-                                    <span className="material-symbols-outlined text-japfa-orange">psychology</span>
-                                </div>
-                                <h2 className="text-xl font-bold text-japfa-dark dark:text-white">Daily AI Analysis</h2>
-                            </div>
-                            <span className="text-[10px] font-black bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 px-3 py-1 rounded-full uppercase tracking-wider">Live Insight</span>
-                        </div>
-                        <div className="space-y-6">
-                            <div className="p-4 bg-gray-50 dark:bg-sidebar rounded-xl border-l-4 border-japfa-orange shadow-sm">
-                                <p className="text-sm font-bold text-japfa-dark dark:text-white mb-1">Critical Insight: Rejection Spike</p>
-                                <p className="text-xs text-japfa-gray dark:text-gray-400 leading-relaxed">High rejection rate detected at <b>Jabodetabek Area</b> (3.2%). Recommend checking reefer settings.</p>
-                            </div>
-                            <div className="p-4 bg-gray-50 dark:bg-sidebar rounded-xl border-l-4 border-japfa-navy shadow-sm">
-                                <p className="text-sm font-bold text-japfa-dark dark:text-white mb-1">Efficiency Optimization</p>
-                                <p className="text-xs text-japfa-gray dark:text-gray-400 leading-relaxed">Load factor improved to 89.4%. Est. Saving: Rp 45.2M / day.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 };
@@ -647,7 +587,7 @@ const EfficiencyContent = () => (
                 label="Hidden Cost" value="4.2%" change="0.5%" trend="down" icon="visibility_off" bgColor="bg-orange-50" iconColor="text-japfa-orange" subtext="minimal leakage"
             />
             <KPICard
-                label="SLA Performance" value="98.2%" change="On Target" trend="up" icon="star" bgColor="bg-orange-50" iconColor="text-japfa-orange" subtext="service excellence"
+                label="Average delivery time" value="98.2%" change="On Target" trend="up" icon="star" bgColor="bg-orange-50" iconColor="text-japfa-orange" subtext="service excellence"
             />
         </div>
 
@@ -806,34 +746,12 @@ const EfficiencyContent = () => (
 );
 
 const ManagerLogistik = () => {
-    const [activeTab, setActiveTab] = useState("overview");
+    const location = useLocation();
+    const activeTab = location.pathname.split('/').pop() || 'overview';
     const { endDate } = useDateRange();
 
     return (
         <div className="p-8 pt-0 max-w-[1600px] mx-auto min-h-screen">
-            {/* Horizontal Tab Navigation */}
-            <div className="sticky top-0 z-20 bg-gray-50/95 dark:bg-sidebar/95 backdrop-blur-sm -mx-8 px-8 border-b border-gray-200 dark:border-white/10 pt-1 mb-8">
-                <nav className="flex items-center justify-between gap-10">
-                    <div className="flex items-center gap-10">
-                        {[
-                            { id: "overview", label: "Overview" },
-                            { id: "return", label: "Return Performance" },
-                            { id: "efficiency", label: "Logistics Efficiency" }
-                        ].map((tab) => (
-                            <button
-                                key={tab.id}
-                                onClick={() => setActiveTab(tab.id)}
-                                className={`py-3 text-sm transition-all border-b-2 ${activeTab === tab.id
-                                    ? "text-japfa-orange border-japfa-orange font-extrabold"
-                                    : "text-japfa-gray dark:text-gray-400 border-transparent hover:text-japfa-dark dark:hover:text-white hover:border-gray-300 dark:hover:border-white/20 font-semibold"
-                                    }`}
-                            >
-                                {tab.label}
-                            </button>
-                        ))}
-                    </div>
-                </nav>
-            </div>
 
             {/* Tab Content */}
             <div className="space-y-8 pb-10 transition-all duration-500">

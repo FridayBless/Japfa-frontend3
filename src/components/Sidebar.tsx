@@ -83,7 +83,9 @@ export default function Sidebar() {
                 <nav className="p-4 flex flex-col gap-1">
                     {[
                         { to: "/logistik", icon: "dashboard", label: "Dashboard", end: true, roles: ['logistik'] },
-                        { to: "/manager", icon: "monitoring", label: "Manager Logistik", roles: ['manager'] },
+                        { to: "/manager/overview", icon: "dashboard", label: "Overview", roles: ['manager'] },
+                        { to: "/manager/return", icon: "assignment_return", label: "Return Performance", roles: ['manager'] },
+                        { to: "/manager/efficiency", icon: "analytics", label: "Logistics Efficiency", roles: ['manager'] },
                         { to: "/logistik/route-planning", icon: "map", label: "Route Planning", roles: ['logistik'] },
                         { to: "/logistik/load-planner", icon: "conveyor_belt", label: "Load Planner", roles: ['logistik'] },
                         { to: "/logistik/fleet", icon: "local_shipping", label: "Fleet Management", roles: ['logistik'] },
@@ -187,7 +189,7 @@ export default function Sidebar() {
                                 <button
                                     onClick={() => {
                                         login('manager');
-                                        navigate('/manager');
+                                        navigate('/manager/overview');
                                     }}
                                     className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-all ${role === 'manager'
                                         ? 'bg-primary/10 text-primary'
