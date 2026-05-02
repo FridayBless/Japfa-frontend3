@@ -14,7 +14,8 @@ export default function Sidebar() {
         logistik: "Logistics Admin",
         manager: "Logistics Manager",
         pod: "POD Admin",
-        driver: "Driver"
+        driver: "Driver",
+        kasir: "Kasir"
     };
     const userRole = roleNames[role || 'logistik'] || "Logistics Admin";
     const [userPhoto, setUserPhoto] = useState("https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop");
@@ -92,6 +93,8 @@ export default function Sidebar() {
                         { to: "/logistik/drivers", icon: "badge", label: "Driver List", roles: ['logistik'] },
                         { to: "/logistik/customers", icon: "groups", label: "Customer Data", roles: ['logistik'] },
                         { to: "/logistik/analytics", icon: "analytics", label: "Analytics", roles: ['logistik'] },
+                        { to: "/kasir", icon: "payments", label: "Input Biaya", end: true, roles: ['kasir'] },
+                        { to: "/kasir/history", icon: "history", label: "Riwayat Cost", roles: ['kasir'] },
                     ].filter(item => !item.roles || item.roles.includes(role || '')).map((item) => (
                         <NavLink
                             key={item.to}
@@ -234,6 +237,22 @@ export default function Sidebar() {
                                         <span className={`text-sm ${role === 'driver' ? 'font-semibold' : 'font-medium'}`}>Driver</span>
                                     </div>
                                     {role === 'driver' && <span className="material-symbols-outlined text-xl">check_circle</span>}
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        login('kasir');
+                                        navigate('/kasir');
+                                    }}
+                                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-all ${role === 'kasir'
+                                        ? 'bg-primary/10 text-primary'
+                                        : 'hover:bg-slate-100 dark:hover:bg-white/5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                        }`}
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <span className="material-symbols-outlined text-xl">payments</span>
+                                        <span className={`text-sm ${role === 'kasir' ? 'font-semibold' : 'font-medium'}`}>Kasir</span>
+                                    </div>
+                                    {role === 'kasir' && <span className="material-symbols-outlined text-xl">check_circle</span>}
                                 </button>
                             </div>
                         </div>

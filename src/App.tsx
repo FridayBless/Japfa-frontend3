@@ -24,6 +24,10 @@ import AddCustomer from './pages/logistik/AddCustomer';
 import EditCustomer from './pages/logistik/EditCustomer';
 import ManagerLogistik from './pages/manager logistik/ManagerLogistik';
 
+// Kasir Pages
+import KasirDashboard from './pages/kasir/KasirDashboard';
+import KasirHistory from './pages/kasir/KasirHistory';
+
 // Admin POD Pages
 import PodDashboard from './pages/pod/Dashboard';
 import PodVerifications from './pages/pod/Verifications';
@@ -81,6 +85,14 @@ function App() {
                   <Route path="/manager/overview" element={<ManagerLogistik />} />
                   <Route path="/manager/return" element={<ManagerLogistik />} />
                   <Route path="/manager/efficiency" element={<ManagerLogistik />} />
+                </Route>
+              </Route>
+
+              {/* Kasir Routes */}
+              <Route element={<RoleGuard allowedRoles={['kasir']} />}>
+                <Route element={<LogisticsLayout />}>
+                  <Route path="/kasir" element={<KasirDashboard />} />
+                  <Route path="/kasir/history" element={<KasirHistory />} />
                 </Route>
               </Route>
 

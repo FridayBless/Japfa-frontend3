@@ -24,6 +24,8 @@ export default function LogisticsLayout() {
             case '/logistik/settings': return "Application Settings";
             case '/logistik/load-planner': return "3D Load Planner";
             case '/manager': return "Manager Logistics Dashboard";
+            case '/kasir': return "Input Biaya Operasional";
+            case '/kasir/history': return "Riwayat Input Biaya";
             default: return "TMS Japfa Logistics";
         }
     };

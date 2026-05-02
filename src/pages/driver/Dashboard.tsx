@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
 
 const DriverDashboard: React.FC = () => {
     const navigate = useNavigate();
+    const [startKm, setStartKm] = useState('');
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-[#1a1c1e] font-sans transition-colors duration-300">
@@ -64,10 +65,37 @@ const DriverDashboard: React.FC = () => {
                 </div>
 
                 {/* Action Button */}
-                <div className="pt-4 pb-12">
+                <div className="pt-4 pb-12 space-y-4">
+                    <div className="bg-white dark:bg-[#2c2e33] rounded-3xl p-6 border border-slate-100 dark:border-slate-800 shadow-sm">
+                        <label htmlFor="startKm" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
+                            Catat Odometer Awal (KM)
+                        </label>
+                        <div className="relative">
+                            <input
+                                type="number"
+                                id="startKm"
+                                value={startKm}
+                                onChange={(e) => setStartKm(e.target.value)}
+                                placeholder="Contoh: 12500"
+                                className="w-full bg-slate-50 dark:bg-[#1a1c1e] border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-4 text-lg font-bold dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                            />
+                            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">
+                                KM
+                            </span>
+                        </div>
+                        <p className="text-xs text-slate-500 mt-3 flex items-start gap-1">
+                            <span className="material-symbols-outlined text-[16px] mt-0.5">info</span>
+                            Catat KM di jembatan timbang sebelum keluar pabrik
+                        </p>
+                    </div>
+
                     <button 
-                        onClick={() => navigate('/driver/routes')}
-                        className="w-full h-16 bg-primary hover:bg-primary/90 text-white rounded-2xl font-bold text-lg shadow-xl shadow-primary/20 transition-all active:scale-95 flex items-center justify-center gap-3"
+                        onClick={() => {
+                            localStorage.setItem('driver_start_km', startKm);
+                            navigate('/driver/routes');
+                        }}
+                        disabled={!startKm}
+                        className={`w-full h-16 ${startKm ? 'bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-400 cursor-not-allowed'} rounded-2xl font-bold text-lg transition-all active:scale-95 flex items-center justify-center gap-3`}
                     >
                         <span className="material-symbols-outlined text-2xl">play_arrow</span>
                         MULAI PERJALANAN

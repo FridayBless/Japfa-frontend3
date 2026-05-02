@@ -24,6 +24,8 @@ export default function Login() {
             targetRole = 'driver';
         } else if (email.toLowerCase().includes('manager')) {
             targetRole = 'manager';
+        } else if (email.toLowerCase().includes('kasir')) {
+            targetRole = 'kasir';
         }
 
         login(targetRole);
@@ -36,6 +38,8 @@ export default function Login() {
             navigate('/driver');
         } else if (targetRole === 'manager') {
             navigate('/manager');
+        } else if (targetRole === 'kasir') {
+            navigate('/kasir');
         } else {
             navigate('/logistik');
         }
